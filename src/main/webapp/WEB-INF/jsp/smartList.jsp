@@ -9,24 +9,26 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>服务器列表</title>
+    <title>Smart列表</title>
 </head>
 <body>
 <table border="1">
     <tr>
-        <th>IP</th>
-        <th>用户名</th>
-        <th>密码</th>
-        <th>描述</th>
+        <th>id</th>
+        <th>type</th>
+        <th>command</th>
+        <th>operate_time</th>
+        <th>operator</th>
 
     </tr>
-<c:forEach items="${serverList}" var="server">
+<c:forEach items="${smartList}" var="smart">
 
         <tr>
-            <td>${server.ip}</td>
-            <td>${server.userName}</td>
-            <td>${server.password}</td>
-            <td>${server.description}</td>
+            <td>${smart.id}</td>
+            <td>${smart.type}</td>
+            <td>${smart.command}</td>
+            <td>${smart.operateTime}</td>
+            <td>${smart.operator}</td>
         </tr>
 
 
