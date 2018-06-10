@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smarthouse.operation.dao.CommissionDAO">
+    <resultMap id="Sale" type="com.smarthouse.operation.dataobject.Sale">
+        <id column="id" property="id"/>
+        <result column="town" property="town"/>
+        <result column="locks_num" property="locksNum"/>
+        <result column="stocks_num" property="stocksNum"/>
+        <result column="barrels_num" property="barrelsNum"/>
+        <result column="year" property="year"/>
+        <result column="month" property="month"/>
+        <association column="saleperson_id" property="saleperson" select="com.smarthouse.operation.dao.CommissionDAO.getUserById"/>
+    </resultMap>
+    <insert id="addSalePerson" parameterType="com.smarthouse.operation.dataobject.User">
+        INSERT INTO `user`(username, password, type, permitted) VALUES (#{username}, #{password}, 1, 1)
+    </insert>
+    <select id="getAllSalePerson" resultType="com.smarthouse.operation.dataobject.User">
+        SELECT * FROM `user` WHERE type = 1
+    </select>
+    <select id="getUserByName" parameterType="java.lang.String" resultType="com.smarthouse.operation.dataobject.User">
+        SELECT * FROM `user` WHERE username = #{name}
+    </select>
+    <select id="getUserById" parameterType="java.lang.Integer" resultType="com.smarthouse.operation.dataobject.User">
+        SELECT * FROM `user` WHERE id = #{id}
+    </select>
+
+
+    <select id="getAllSales" resultMap="Sale">
+        SELECT * FROM `sale`
+    </select>
+    <select id="getSalesBySalePerson" resultMap="Sale">
+        SELECT * FROM `sale` WHERE saleperson_id = #{id}
+    </select>
+    <select id="getSalesBySalePersonMonthly" resultMap="Sale">
+        SELECT * FROM `sale` WHERE saleperson_id = #{id} AND year = #{year} AND `month` = #{month}
+    </select>
+
+
+    <insert id="makeADeal" parameterType="com.smarthouse.operation.dataobject.Sale">
+        INSERT INTO `sale`(saleperson_id, town, locks_num, stocks_num, barrels_num, year, month) VALUES (#{saleperson.id}, #{town}, #{locksNum}, #{stocksNum}, #{barrelsNum}, #{year}, #{month})
+    </insert>
+
+    <update id="permitSalePerson" parameterType="com.smarthouse.operation.dataobject.User">
+        UPDATE `user` SET permitted = 1 WHERE username = #{username}
+    </update>
+    <update id="unpermitSalePerson" parameterType="com.smarthouse.operation.dataobject.User">
+        UPDATE `user` SET permitted = 0 WHERE username = #{username}
+    </update>
+</mapper>

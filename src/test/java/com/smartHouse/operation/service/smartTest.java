@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import javax.annotation.Resource;
+
 /**
  * @Auther: davidddl
  * @Date: 2018/5/2 01:55
@@ -17,7 +19,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ContextConfiguration(locations={"classpath:spring/spring-*.xml"})
 public class smartTest {
 
-    @Autowired
+    @Resource
     SmartService smartService;
 
     @Test
